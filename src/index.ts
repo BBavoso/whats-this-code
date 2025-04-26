@@ -13,7 +13,7 @@ async function translate() {
     const languageText = language!.value;
     const response = await ai.models.generateContent({
         model: 'gemini-2.0-flash-001',
-        contents: 'Hey gemini! I was wondering if you can translate this code into ' + languageText + 'for me: ' + input + 'I just want the code, nothing else',
+        contents: 'Hey gemini! I was wondering if you can translate this code into ' + languageText + 'for me: ' + input + 'I just want the code, nothing else. Feel free to use markdown but no html',
     });
     return response.text;
 }
@@ -21,7 +21,6 @@ async function translate() {
 async function explain() {
     const inputArea = document.getElementById("input_area") as HTMLTextAreaElement
     const input = inputArea!.value;
-    alert(input);
     const response = await ai.models.generateContent({
         model: 'gemini-2.0-flash-001',
         contents: 'can you explain this code to me in the simplest way possible?' + input,
@@ -33,6 +32,7 @@ async function explain() {
 const explainButton = document.getElementById("explain");
 const outputBox = document.getElementById("output_area");
 explainButton!.addEventListener("click", async () => {
+    outputBox!.innerHTML = ""
     const response = await explain();
     const output = await response as string;
     outputBox!.innerHTML = await marked.parse(output);
@@ -40,6 +40,7 @@ explainButton!.addEventListener("click", async () => {
 
 const translateButton = document.getElementById("translate");
 translateButton!.addEventListener("click", async () => {
+    outputBox!.innerHTML = ""
     const response = await translate();
     const output = await response as string;
     outputBox!.innerHTML = await marked.parse(output);
