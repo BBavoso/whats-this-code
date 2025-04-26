@@ -1,24 +1,39 @@
 let popupDiv: HTMLDivElement | null = null;
 let popupTimeout: number | undefined;
 
-let popup_window_on = true;
+let popupWindowOn = true;
+let wordLimit = 50; // Maximum length of text to be processed
 
 function toggleOnShortcut(event: KeyboardEvent) {
   // Control + B toggles popup-up window
   if (event.ctrlKey && event.key === 'b') {
-    popup_window_on = !popup_window_on;
-    alert(`Popup window ${popup_window_on ? "on" : "off"}`);
+    popupWindowOn = !popupWindowOn;
+    alert(`Popup window ${popupWindowOn ? "on" : "off"}`);
   }
 }
 
 // Attach the listener
 window.addEventListener('keydown', toggleOnShortcut);
 
-// Optional: Remove the listener later if needed
-// window.removeEventListener('keydown', toggleOnShortcut);
+function truncateText(input: string, wordLimit: number = 50): string {
+  if (wordLimit <= 0) {
+    wordLimit = 50; // Default to 50 if invalid limit is provided
+  }
+  // Split the input into words based on spaces
+  const words = input.split(/\s+/);
+
+  // Check if the input has more than the wordLimit
+  if (words.length > wordLimit) {
+      // If it does, take the first 'wordLimit' words and join them back together
+      return words.slice(0, wordLimit).join(' ') + '...';
+  } else {
+      // If it's shorter than the wordLimit, just return the input as it is
+      return input;
+  }
+}
 
 document.addEventListener("mouseup", (event: MouseEvent) => {
-  const selectedText: string = window.getSelection()?.toString().trim() || "";
+  let selectedText: string = window.getSelection()?.toString().trim() || "";
 
   if (popupDiv && event.target instanceof Node && popupDiv.contains(event.target)) {
     return;
@@ -33,15 +48,17 @@ document.addEventListener("mouseup", (event: MouseEvent) => {
     }
   }
 
-  if (selectedText.length > 0 && popup_window_on) {
+  if (selectedText.length > 0 && popupWindowOn) {
+    selectedText = truncateText(selectedText, wordLimit);
+
     const isDarkMode: boolean = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
     popupDiv = document.createElement("div");
     popupDiv.style.position = "absolute";
     popupDiv.style.top = `${event.pageY + 10}px`;
     popupDiv.style.left = `${event.pageX + 10}px`;
-    popupDiv.style.background = isDarkMode ? "#222" : "#fff";
-    popupDiv.style.color = isDarkMode ? "#fff" : "#000";
+    popupDiv.style.background = "#222";
+    popupDiv.style.color = "#000";
     popupDiv.style.border = "1px solid #888";
     popupDiv.style.padding = "10px";
     popupDiv.style.borderRadius = "8px";
@@ -52,10 +69,18 @@ document.addEventListener("mouseup", (event: MouseEvent) => {
     popupDiv.style.cursor = "default";
     popupDiv.style.wordBreak = "break-word";
 
-    const textDiv: HTMLDivElement = document.createElement("div");
-    textDiv.textContent = selectedText;
-    textDiv.style.marginBottom = "10px";
-    popupDiv.appendChild(textDiv);
+    const textBox = document.createElement("div");
+    textBox.style.background = "#f0f0f0"; // Force white background
+    textBox.style.color = "#000"; // Force black text for readability
+    textBox.style.padding = "8px";
+    textBox.style.marginBottom = "10px";
+    textBox.style.borderRadius = "5px";
+    textBox.style.border = "1px solid #ddd";
+    textBox.style.boxShadow = "0px 1px 3px rgba(0,0,0,0.2)";
+    textBox.style.fontSize = "12px";
+    textBox.style.fontFamily = "Helvetica, sans-serif";
+    textBox.textContent = selectedText; // Add the selected text here
+    popupDiv.appendChild(textBox);
 
     const buttonContainer: HTMLDivElement = document.createElement("div");
 
@@ -78,8 +103,8 @@ document.addEventListener("mouseup", (event: MouseEvent) => {
       button.style.borderRadius = "5px";
       button.style.cursor = "pointer";
       button.style.fontSize = "12px";
-      button.style.background = isDarkMode ? "#444" : "#eee";
-      button.style.color = isDarkMode ? "#fff" : "#000";
+      button.style.background = "#444";
+      button.style.color = "#fff";
       button.addEventListener("click", (e: MouseEvent) => {
         e.stopPropagation();
         if (popupTimeout) {
