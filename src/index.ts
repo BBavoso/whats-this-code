@@ -1,4 +1,5 @@
 import { GoogleGenAI } from '@google/genai';
+import { marked } from 'marked';
 const GEMINI_API_KEY = process.env.super_secret_key;
 
 
@@ -33,12 +34,14 @@ const explainButton = document.getElementById("explain");
 const outputBox = document.getElementById("output_area");
 explainButton!.addEventListener("click", async () => {
     const response = await explain();
-    outputBox!.innerHTML = response as string;
+    const output = await response as string;
+    outputBox!.innerHTML = await marked.parse(output);
 });
 
 const translateButton = document.getElementById("translate");
 translateButton!.addEventListener("click", async () => {
     const response = await translate();
-    outputBox!.innerHTML = response as string;
+    const output = await response as string;
+    outputBox!.innerHTML = await marked.parse(output);
 })
 
