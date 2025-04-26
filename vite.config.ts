@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
-import.meta.env.local
 
 export default defineConfig({
   base: './',
