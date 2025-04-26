@@ -7,7 +7,6 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "types": ["chrome"],
-    "baseUrl": "./src"
+    "types": ["chrome"]
   }
 }

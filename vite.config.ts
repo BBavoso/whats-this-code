@@ -2,21 +2,21 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
 export default defineConfig({
+  base: './',
   build: {
+    outDir: 'dist',
     rollupOptions: {
       input: {
+        popup: resolve(__dirname, 'popup.html'),
         background: resolve(__dirname, 'src/background.ts'),
-        popup: resolve(__dirname, 'src/popup.html'),
       },
       output: {
-        entryFileNames: (chunk) => {
-          if (chunk.name === 'background') return 'background.js';
-          return chunk.name + '.js';
-        },
+        entryFileNames: '[name].js',
+        assetFileNames: '[name][extname]',
       },
     },
-    outDir: 'dist',
-    sourcemap: false,
     emptyOutDir: true,
+    sourcemap: false,
+    assetsDir: '',
   },
 });
