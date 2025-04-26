@@ -54,11 +54,11 @@ document.addEventListener("mouseup", (event: MouseEvent) => {
     popupDiv.style.top = `${event.pageY + 10}px`;
     popupDiv.style.left = `${event.pageX + 10}px`;
 
-    // Create text box
-    const textBox = document.createElement("div");
-    textBox.className = "text-box";
-    textBox.textContent = selectedText;
-    popupDiv.appendChild(textBox);
+    // // Create text box
+    // const textBox = document.createElement("div");
+    // textBox.className = "text-box";
+    // textBox.textContent = selectedText;
+    // popupDiv.appendChild(textBox);
 
     // Create button container
     const buttonContainer = document.createElement("div");
