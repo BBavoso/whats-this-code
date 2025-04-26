@@ -4,8 +4,8 @@
 }
 
 body {
-    height: 100vh;
-    width: 100vw;
+    height: 600px;
+    width: 600px;
 }
 
 .container {
@@ -13,8 +13,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     flex-direction: column;
 
 }
@@ -23,15 +23,47 @@ body {
 
     border: 1px solid black;
     border-radius: 5px;
-    height: 35vw;
-    width: 35vw;
+    height: 35%;
+    width: 35%;
     margin-bottom: 20px;
 }
 
 #output_area {
     border: 1px solid black;
     border-radius: 5px;
-    height: 35vw;
-    width: 35vw;
+    height: 35%;
+    width: 35%;
 
+}
+
+
+.button {
+    width: 200px;
+    height: 50px;
+    background-color: white;
+    border: 1px solid black;
+    z-index: 1;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+#buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 35%;
+    position: relative;
+}
+
+#languageInput {
+    width: 200px;
+    height: 100px;
+    background-color: white;
+    border: 1px solid black;
+    z-index: 1;
+    margin-top: 10px;
+    /* Add padding between buttons and input */
+    position: relative;
+    /* Ensure it stacks naturally below #buttons */
 }

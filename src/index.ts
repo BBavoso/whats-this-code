@@ -6,36 +6,39 @@ const ai = new GoogleGenAI({ apiKey: "AIzaSyDwYwlAV2A3eyVi1x68oy3zPB2mx1U641A" }
 
 
 async function translate() {
-    const input = document.querySelector("#input_area");
-    const language = document.querySelector("#language_selector"); //doesn't exist yet shhhh
+    const inputArea = document.getElementById("input_area") as HTMLTextAreaElement;
+    const input = inputArea!.value;
+    const language = document.querySelector("#languageInput") as HTMLTextAreaElement;
+    const languageText = language!.value;
     const response = await ai.models.generateContent({
         model: 'gemini-2.0-flash-001',
-        contents: 'Hey gemini! I was wondering if you can translate this code into ' + language + 'for me: ' + input + 'I just want the code, nothing else',
+        contents: 'Hey gemini! I was wondering if you can translate this code into ' + languageText + 'for me: ' + input + 'I just want the code, nothing else',
     });
-    console.log(response.text);
+    return response.text;
 }
 
 async function explain() {
-    const input = document.querySelector("#input_area");
+    const inputArea = document.getElementById("input_area") as HTMLTextAreaElement
+    const input = inputArea!.value;
+    alert(input);
     const response = await ai.models.generateContent({
         model: 'gemini-2.0-flash-001',
         contents: 'can you explain this code to me in the simplest way possible?' + input,
     });
-    window.alert("HI");
+    return response.text;
 }
 
 
-async function main() {
-    const response = await ai.models.generateContent({
-        model: 'gemini-2.0-flash-001',
-        contents: 'Why is the sky blue?',
-    });
-    // console.log(response.text);
-    translate();
-    explain();
+const explainButton = document.getElementById("explain");
+const outputBox = document.getElementById("output_area");
+explainButton!.addEventListener("click", async () => {
+    const response = await explain();
+    outputBox!.innerHTML = response as string;
+});
 
-}
-
-main();
-
+const translateButton = document.getElementById("translate");
+translateButton!.addEventListener("click", async () => {
+    const response = await translate();
+    outputBox!.innerHTML = response as string;
+})
 
