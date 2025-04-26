@@ -47,7 +47,7 @@ document.addEventListener("mouseup", (event: MouseEvent) => {
     popupDiv.style.borderRadius = "8px";
     popupDiv.style.boxShadow = "0px 2px 8px rgba(0,0,0,0.3)";
     popupDiv.style.zIndex = "9999";
-    popupDiv.style.maxWidth = "260px";
+    popupDiv.style.maxWidth = "20%";
     popupDiv.style.fontSize = "14px";
     popupDiv.style.cursor = "default";
     popupDiv.style.wordBreak = "break-word";
@@ -58,14 +58,21 @@ document.addEventListener("mouseup", (event: MouseEvent) => {
     popupDiv.appendChild(textDiv);
 
     const buttonContainer: HTMLDivElement = document.createElement("div");
+
     buttonContainer.style.display = "flex";
+    buttonContainer.style.flexWrap = "wrap"; // Allow buttons to move if too tight
     buttonContainer.style.justifyContent = "space-between";
     buttonContainer.style.gap = "5px";
+
 
     function createButton(label: string, onClick: () => void): HTMLButtonElement {
       const button: HTMLButtonElement = document.createElement("button");
       button.textContent = label;
-      button.style.flex = "1";
+      // button.style.flex = "1";
+      button.style.flex = "0 0 auto"; // Don't stretch/shrink, size to content
+      button.style.flexGrow = "1"; // Make each button grow to fill space
+      button.style.padding = "10px"; // Adjust padding for more comfortable click area
+      button.style.whiteSpace = "nowrap"; // Prevent text wrapping inside button
       button.style.padding = "5px";
       button.style.border = "none";
       button.style.borderRadius = "5px";
