@@ -3,6 +3,7 @@ let popupTimeout: number | undefined;
 
 let popupWindowOn = true;
 let wordLimit = 50; // Maximum length of text to be processed
+let highlightMenuTimeOut = 7500; // Time in milliseconds to show the highlight menu
 
 function toggleOnShortcut(event: KeyboardEvent) {
   // Control + B toggles popup-up window
@@ -109,7 +110,7 @@ document.addEventListener("mouseup", (event: MouseEvent) => {
           popupDiv.remove();
           popupDiv = null;
         }
-      }, 5000);
+      }, highlightMenuTimeOut);
     }
 
     startAutoCloseTimer();
