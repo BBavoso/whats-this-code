@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Minimal Vite Chrome Extension",
+  "name": "What's This Code?",
   "version": "0.0.1",
-  "description": "Just a simple Chrome extension built with Vite and TypeScript",
+  "description": "Explains Code",
   "permissions": ["storage"],
   "background": {
     "service_worker": "dist/background.js"
