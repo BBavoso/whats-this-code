@@ -124,7 +124,17 @@ document.addEventListener("mouseup", (event: MouseEvent) => {
     });
 
     const explainButton = createButton("Explain", () => {
-      alert(`Explain: ${selectedText}`);
+      var url = chrome.runtime.getURL("popup.html");
+      console.log(url);
+      // window.open(url, "_blank");
+
+      // chrome.tabs.create({
+      //   url: chrome.runtime.getURL("popup.html"),
+      // });
+      chrome.runtime.sendMessage({
+        action: "explainSelectedText",
+        data: selectedText
+      });
     });
 
     buttonContainer.appendChild(searchButton);

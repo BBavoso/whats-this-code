@@ -20,6 +20,8 @@
     "vite": "^5.0.0"
   },
   "dependencies": {
-    "dotenv": "^16.5.0"
+    "@google/genai": "^0.10.0",
+    "dotenv": "^16.5.0",
+    "marked": "^15.0.11"
   }
 }

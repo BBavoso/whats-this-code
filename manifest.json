@@ -3,7 +3,15 @@
   "name": "What's This Code?",
   "version": "0.0.1",
   "description": "Explains Code",
-  "permissions": ["tabs", "contextMenus"],
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "tabs",
+    "contextMenus"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
   "background": {
     "service_worker": "dist/background.js"
   },
