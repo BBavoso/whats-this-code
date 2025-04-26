@@ -4,8 +4,8 @@
 }
 
 body {
-    height: 600px;
-    width: 600px;
+    height: 400px;
+    width: 800px;
 }
 
 .container {
@@ -15,26 +15,11 @@ body {
     align-items: center;
     height: 100%;
     width: 100%;
-    flex-direction: column;
+    flex-direction: row;
 
 }
 
-#input_area {
 
-    border: 1px solid black;
-    border-radius: 5px;
-    height: 35%;
-    width: 35%;
-    margin-bottom: 20px;
-}
-
-#output_area {
-    border: 1px solid black;
-    border-radius: 5px;
-    height: 35%;
-    width: 35%;
-
-}
 
 
 .button {
@@ -43,27 +28,55 @@ body {
     background-color: white;
     border: 1px solid black;
     z-index: 1;
+    margin-left: 10px;
 }
 
 .button:hover {
     cursor: pointer;
 }
 
+
+
 #buttons {
+    position: absolute;
     display: flex;
-    justify-content: space-between;
-    width: 35%;
-    position: relative;
+    bottom: 10px;
+    left: 10px;
+    gap: 5px;
+    flex-direction: row;
+    z-index: 3;
 }
 
-#languageInput {
+/* #languageInput {
     width: 200px;
-    height: 100px;
+    height: 50px;
     background-color: white;
     border: 1px solid black;
     z-index: 1;
-    margin-top: 10px;
-    /* Add padding between buttons and input */
+    position: absolute;
+    resize: none;
+    text-align: center;
+    top: 75%;
+    left: 61%;
+} */
+
+.textareas {
+    resize: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 60%;
+    width: 42%;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding: 10px;
+}
+
+textarea::placeholder {
+    text-align: center;
+    color: gray;
+    font-size: 14px;
+}
+
+#input_area {
     position: relative;
-    /* Ensure it stacks naturally below #buttons */
 }
