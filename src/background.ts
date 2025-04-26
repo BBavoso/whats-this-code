@@ -11,7 +11,7 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId === 'searchGithub' && info.selectionText) {
     const query = encodeURIComponent(info.selectionText); // URL encode the selection text
-    const githubSearchUrl = `https://github.com/search?q=${query}+in%3Acode`; // GitHub search with code filter
+    const githubSearchUrl = `https://github.com/search?q=${query}&type=code`; // GitHub search with code filter
     chrome.tabs.create({ url: githubSearchUrl }); // Open GitHub search in a new tab
   }
 });
