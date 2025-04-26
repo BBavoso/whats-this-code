@@ -1,6 +1,22 @@
 let popupDiv: HTMLDivElement | null = null;
 let popupTimeout: number | undefined;
 
+let popup_window_on = true;
+
+function toggleOnShortcut(event: KeyboardEvent) {
+  // Control + B toggles popup-up window
+  if (event.ctrlKey && event.key === 'b') {
+    popup_window_on = !popup_window_on;
+    alert(`Popup window ${popup_window_on ? "on" : "off"}`);
+  }
+}
+
+// Attach the listener
+window.addEventListener('keydown', toggleOnShortcut);
+
+// Optional: Remove the listener later if needed
+// window.removeEventListener('keydown', toggleOnShortcut);
+
 document.addEventListener("mouseup", (event: MouseEvent) => {
   const selectedText: string = window.getSelection()?.toString().trim() || "";
 
@@ -17,7 +33,7 @@ document.addEventListener("mouseup", (event: MouseEvent) => {
     }
   }
 
-  if (selectedText.length > 0) {
+  if (selectedText.length > 0 && popup_window_on) {
     const isDarkMode: boolean = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
     popupDiv = document.createElement("div");
