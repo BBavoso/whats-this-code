@@ -10,6 +10,7 @@ export default defineConfig({
         popup: resolve(__dirname, 'popup.html'),
         background: resolve(__dirname, 'src/background.ts'),
         ai_interaction: resolve(__dirname, 'src/index.ts'),
+        highlightMenu: resolve(__dirname, 'src/highlightMenu.ts'),
       },
       output: {
         entryFileNames: '[name].js',
