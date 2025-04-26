@@ -1,11 +1,12 @@
 {
-  "name": "minimal-vite-chrome-extension",
+  "name": "whats-the-code",
   "version": "0.0.1",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "pack": "vite build && zip -r WhatsTheCode.zip dist index.css popup.html manifest.json"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.317",
