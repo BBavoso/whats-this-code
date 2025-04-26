@@ -3,7 +3,7 @@
   "name": "What's This Code?",
   "version": "0.0.1",
   "description": "Explains Code",
-  "permissions": ["storage"],
+  "permissions": ["tabs", "contextMenus"],
   "background": {
     "service_worker": "dist/background.js"
   },
