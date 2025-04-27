@@ -6,7 +6,7 @@
  */
 export async function fetchQuestions(name: string): Promise<string[]> {
   try {
-    const url = new URL('http://localhost:8080/get-questions');
+    const url = new URL('http://localhost:8080/get-questions/');
     url.searchParams.append('name', name);
 
     const response = await fetch(url, {
