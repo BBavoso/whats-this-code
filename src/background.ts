@@ -11,7 +11,7 @@ const CONTEXT_MENUS = [
   {
     id: 'searchGithub',
     title: 'Search GitHub for "%s"',
-    url: (query: string) => `https://github.com/search?q=${query}&type=code`,
+    url: (query: string) => `https://github.com/search?q="${query}"&type=code`,
   },
   {
     id: 'searchStackOverflow',
