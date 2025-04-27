@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/v2/bson"
@@ -44,7 +45,7 @@ func main() {
 	coll = client.Database("test").Collection("users")
 
 	// Define HTTP routes
-	http.HandleFunc("/get-questions", getQuestionsHandler)
+	http.HandleFunc("/get-questions/", getQuestionsHandler) // Route to handle user name in URL
 	http.HandleFunc("/add-question", addQuestionHandler)
 
 	// Start the server
@@ -52,35 +53,32 @@ func main() {
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
-// Handler to get questions for a specific person
+// Handler to get questions for a specific person (name provided in the URL)
 func getQuestionsHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
 		return
 	}
 
-	// // Get the "name" query parameter
-	// name := r.URL.Query().Get("name")
-	// if name == "" {
-	// 	http.Error(w, "Missing 'name' query parameter", http.StatusBadRequest)
-	// 	return
-	// }
-
-	var payload struct {
-		Name string `json:"name"`
+	// Get the "name" from the URL path (after /get-questions/)
+	parts := strings.Split(r.URL.Path, "/")
+	if len(parts) < 3 {
+		http.Error(w, "Missing name in URL path", http.StatusBadRequest)
+		return
 	}
-	err := json.NewDecoder(r.Body).Decode(&payload)
-	if err != nil || payload.Name == "" {
-		http.Error(w, "Invalid request payload", http.StatusBadRequest)
+
+	name := parts[2] // Extract the name from the URL
+	if name == "" {
+		http.Error(w, "Name is required", http.StatusBadRequest)
 		return
 	}
 
 	// Find the user in the database
 	var result bson.M
-	filter := bson.M{"name": payload.Name}
+	filter := bson.M{"name": name}
 	log.Printf("Filter: %+v\n", filter)
 
-	err = coll.FindOne(context.TODO(), filter).Decode(&result)
+	err := coll.FindOne(context.TODO(), filter).Decode(&result)
 	if err != nil {
 		log.Printf("FindOne error: %v\n", err)
 		http.Error(w, "User not found", http.StatusNotFound)
@@ -90,7 +88,7 @@ func getQuestionsHandler(w http.ResponseWriter, r *http.Request) {
 	// Extract questions and send as JSON response
 	questions, ok := result["questions"]
 	if !ok {
-		http.Error(w, "No questions found for the user: "+payload.Name, http.StatusInternalServerError)
+		http.Error(w, "No questions found for the user: "+name, http.StatusInternalServerError)
 		return
 	}
 	json.NewEncoder(w).Encode(questions)
@@ -126,10 +124,9 @@ func addQuestionHandler(w http.ResponseWriter, r *http.Request) {
 
 	if res.UpsertedCount > 0 {
 		w.WriteHeader(http.StatusCreated)
-		w.Write(([]byte("New user created and question added successfully")))
+		w.Write([]byte("New user created and question added successfully"))
 	} else {
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("Question added successfully"))
 	}
-
 }
