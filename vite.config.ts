@@ -12,6 +12,8 @@ export default defineConfig({
         background: resolve(__dirname, 'src/background.ts'),
         index: resolve(__dirname, 'src/index.ts'),
         content: resolve(__dirname, 'src/content.ts'),
+        highlightMenu: resolve(__dirname, 'src/highlightMenu.ts'),
+
       },
       output: {
         entryFileNames: '[name].js',

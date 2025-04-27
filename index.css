@@ -67,6 +67,7 @@ body {
     transition: all 0.3s ease;
 }
 
+
 .button:last-child:hover {
     background: #f0f4f8;
 }
@@ -112,4 +113,49 @@ textarea::placeholder {
 #output_area {
     overflow-y: scroll;
     padding-left: 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 35%;
+    width: 35%;
+    margin-bottom: 20px;
+}
+
+#output_area {
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 35%;
+    width: 35%;
+
+}
+
+
+.button {
+    width: 200px;
+    height: 50px;
+    background-color: white;
+    border: 1px solid black;
+    z-index: 1;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+#buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 35%;
+    position: relative;
+}
+
+#languageInput {
+    width: 200px;
+    height: 100px;
+    background-color: white;
+    border: 1px solid black;
+    z-index: 1;
+    margin-top: 10px;
+    /* Add padding between buttons and input */
+    position: relative;
+    /* Ensure it stacks naturally below #buttons */
 }

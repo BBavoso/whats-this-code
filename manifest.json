@@ -4,9 +4,14 @@
   "version": "0.0.1",
   "description": "Explains Code",
   "permissions": [
-    "activeTab",
+    "storage",
     "scripting",
-    "storage"
+    "activeTab",
+    "tabs",
+    "contextMenus"
+  ],
+  "host_permissions": [
+    "<all_urls>"
   ],
   "background": {
     "service_worker": "dist/background.js"
@@ -19,9 +24,8 @@
       "matches": [
         "<all_urls>"
       ],
-      "js": [
-        "dist/content.js"
-      ]
+      "js": ["dist/content.js"], ["dist/highlightMenu.js"],
+      "css": ["styles.css"]
     }
   ]
 }

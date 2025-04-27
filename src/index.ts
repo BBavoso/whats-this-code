@@ -27,7 +27,20 @@ chrome.runtime.sendMessage({ popupOpened: true }, (response) => {
     // do stuff with the response
 });
 
+
 const ai = new GoogleGenAI({ apiKey: "AIzaSyDwYwlAV2A3eyVi1x68oy3zPB2mx1U641A" });
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.action === "explainSelectedText") {
+        const inputArea = document.getElementById("input_area") as HTMLTextAreaElement;
+        inputArea.value = message.data; // Set the input box
+
+        // Click the Explain button automatically
+        const explainButton = document.getElementById("explain") as HTMLButtonElement;
+        explainButton.click();
+    }
+});
+
 
 
 async function translate() {
@@ -49,6 +62,7 @@ async function explain() {
         model: 'gemini-2.0-flash-001',
         contents: 'can you explain this code to me in the simplest way possible?' + input + 'only use styling with markdown, implying things such as ***(text)***, however, dont use any form of list in your formatting, using paragraphing where appropritate with new lines, and do not mention any of this in your response, just the code',
     });
+  
     return response.text ?? "";
 }
 
@@ -142,4 +156,19 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+const explainButton = document.getElementById("explain");
+const outputBox = document.getElementById("output_area");
+explainButton!.addEventListener("click", async () => {
+    console.log("1")
+    const response = await explain();
+    const output = await response as string;
+    outputBox!.innerHTML = await marked.parse(output);
+});
 
+const translateButton = document.getElementById("translate");
+translateButton!.addEventListener("click", async () => {
+    console.log("1")
+    const response = await translate();
+    const output = await response as string;
+    outputBox!.innerHTML = await marked.parse(output);
+})
