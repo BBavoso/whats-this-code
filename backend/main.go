@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strings"
 
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/v2/bson"
@@ -55,19 +54,12 @@ func main() {
 
 // Handler to get questions for a specific person (name provided in the URL)
 func getQuestionsHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
-		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
-		return
-	}
+	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Accept")
+	w.Header().Set("Access-Control-Allow-Credentials", "true")
+	name := r.URL.Query().Get("name")
 
-	// Get the "name" from the URL path (after /get-questions/)
-	parts := strings.Split(r.URL.Path, "/")
-	if len(parts) < 3 {
-		http.Error(w, "Missing name in URL path", http.StatusBadRequest)
-		return
-	}
-
-	name := parts[2] // Extract the name from the URL
 	if name == "" {
 		http.Error(w, "Name is required", http.StatusBadRequest)
 		return
@@ -96,6 +88,11 @@ func getQuestionsHandler(w http.ResponseWriter, r *http.Request) {
 
 // Handler to add a question for a specific person
 func addQuestionHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
+	w.Header().Set("Access-Control-Allow-Methods", "PUT, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Accept")
+	w.Header().Set("Access-Control-Allow-Credentials", "true")
+
 	if r.Method != http.MethodPut {
 		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
 		return
