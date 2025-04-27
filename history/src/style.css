@@ -434,3 +434,17 @@ footer {
     justify-content: center;
   }
 }
+
+#logout {
+  background-color: var(--color-error-500);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--spacing-3) var(--spacing-5);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  position: absolute;
+  top: var(--spacing-4);
+  right: var(--spacing-4);
+}
