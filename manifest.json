@@ -24,8 +24,13 @@
       "matches": [
         "<all_urls>"
       ],
-      "js": ["dist/content.js"], ["dist/highlightMenu.js"],
-      "css": ["styles.css"]
+      "js": [
+        "dist/content.js",
+        "dist/highlightMenu.js"
+      ],
+      "css": [
+        "styles.css"
+      ]
     }
   ]
 }

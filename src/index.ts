@@ -62,7 +62,7 @@ async function explain() {
         model: 'gemini-2.0-flash-001',
         contents: 'can you explain this code to me in the simplest way possible?' + input + 'only use styling with markdown, implying things such as ***(text)***, however, dont use any form of list in your formatting, using paragraphing where appropritate with new lines, and do not mention any of this in your response, just the code',
     });
-  
+
     return response.text ?? "";
 }
 
@@ -156,8 +156,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-const explainButton = document.getElementById("explain");
-const outputBox = document.getElementById("output_area");
+// const explainButton = document.getElementById("explain");
+// const outputBox = document.getElementById("output_area");
 explainButton!.addEventListener("click", async () => {
     console.log("1")
     const response = await explain();
@@ -165,7 +165,7 @@ explainButton!.addEventListener("click", async () => {
     outputBox!.innerHTML = await marked.parse(output);
 });
 
-const translateButton = document.getElementById("translate");
+// const translateButton = document.getElementById("translate");
 translateButton!.addEventListener("click", async () => {
     console.log("1")
     const response = await translate();
