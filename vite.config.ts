@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
-
 export default defineConfig({
   base: './',
   build: {
@@ -9,19 +8,24 @@ export default defineConfig({
     rollupOptions: {
       input: {
         popup: resolve(__dirname, 'popup.html'),
+        history: resolve(__dirname, 'history.html'),
         background: resolve(__dirname, 'src/background.ts'),
         index: resolve(__dirname, 'src/index.ts'),
         content: resolve(__dirname, 'src/content.ts'),
         highlightMenu: resolve(__dirname, 'src/highlightMenu.ts'),
+        history_index: resolve(__dirname, 'src/history_index.tsx'),
 
       },
       output: {
         entryFileNames: '[name].js',
         assetFileNames: '[name][extname]',
       },
+      
     },
     emptyOutDir: true,
     sourcemap: false,
     assetsDir: '',
   },
+  
+  
 });
