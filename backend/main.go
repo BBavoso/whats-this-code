@@ -54,7 +54,6 @@ func main() {
 
 // Handler to get questions for a specific person
 func getQuestionsHandler(w http.ResponseWriter, r *http.Request) {
-	log.Println("here in getQuestionsHandler")
 	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
 	w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
 	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Origin")
