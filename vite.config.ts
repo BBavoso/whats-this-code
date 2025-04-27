@@ -9,7 +9,7 @@ export default defineConfig({
       input: {
         popup: resolve(__dirname, 'popup.html'),
         background: resolve(__dirname, 'src/background.ts'),
-        ai_interaction: resolve(__dirname, 'src/index.ts'),
+        index: resolve(__dirname, 'src/index.ts'),
         highlightMenu: resolve(__dirname, 'src/highlightMenu.ts'),
       },
       output: {
