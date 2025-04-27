@@ -138,7 +138,7 @@ document.addEventListener("mouseup", (event: MouseEvent) => {
 
       const dropdown = createDropdown(["GitHub", "StackOverflow"], (selection) => {
         if (selection === "GitHub") {
-          window.open(`https://github.com/search?q="${selectedText}"&type=code`, "_blank");
+          window.open(`https://github.com/search?q=${selectedText}&type=code`, "_blank");
         } else if (selection === "StackOverflow") {
           window.open(`https://stackoverflow.com/search?q=${selectedText}`, "_blank");
         }
