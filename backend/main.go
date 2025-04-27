@@ -66,7 +66,6 @@ func getQuestionsHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Get the "name" query parameter
 	name := r.URL.Query().Get("name")
-	log.Printf("Name: %s\n", name)
 	if name == "" {
 		http.Error(w, "Missing 'name' query parameter", http.StatusBadRequest)
 		return
