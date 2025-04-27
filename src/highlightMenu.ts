@@ -5,22 +5,34 @@ let popupWindowOn = true;
 let wordLimit = 50; // Maximum length of text to be processed
 let highlightMenuTimeOut = 7500; // Time in milliseconds to show the highlight menu
 
-function toggleOnShortcut(event: KeyboardEvent) {
-  // Control + B toggles popup-up window
-  if (event.ctrlKey && event.key === 'b') {
-    popupWindowOn = !popupWindowOn;
-    alert(`Popup window ${popupWindowOn ? "on" : "off"}`);
-  }
-}
+// function toggleOnShortcut(event: KeyboardEvent) {
+//   // Control + B toggles popup-up window
+//   if (event.ctrlKey && event.key === 'b') {
+//     popupWindowOn = !popupWindowOn;
+//     alert(`Popup window ${popupWindowOn ? "on" : "off"}`);
+//   }
+// }
+
+
 
 // Attach the listener
-window.addEventListener('keydown', toggleOnShortcut);
+// window.addEventListener('keydown', toggleOnShortcut);
+
+window.addEventListener('message', (event) => {
+  // Always verify the source!
+  if (event.source !== window) return;
+  if (event.data.source === 'my-extension' && event.data.type === 'FROM_A') {
+    popupWindowOn = event.data.payload;
+  }
+});
+
+
 
 function truncateText(input: string, wordLimit: number = 50): string {
   if (wordLimit <= 0) {
     wordLimit = 50; // Default to 50 if invalid limit is provided
   }
-  
+
   const words = input.split(/\s+/);
 
   if (words.length > wordLimit) {
@@ -69,7 +81,7 @@ document.addEventListener("mouseup", (event: MouseEvent) => {
       const button = document.createElement("button");
       button.className = "action-button";
       button.textContent = label;
-      
+
       button.addEventListener("click", (e: MouseEvent) => {
         e.stopPropagation();
         if (popupTimeout) {
@@ -77,7 +89,7 @@ document.addEventListener("mouseup", (event: MouseEvent) => {
         }
         onClick();
       });
-      
+
       return button;
     }
 
@@ -90,21 +102,7 @@ document.addEventListener("mouseup", (event: MouseEvent) => {
     });
 
     const explainButton = createButton("Explain", () => {
-      const popupUrl = chrome.runtime.getURL('dist/popup.html');
-      const popupWindow = window.open(popupUrl, "_blank");
-    
-      if (popupWindow) {
-        // Wait for 2 seconds (adjust as needed) before sending the message
-        setTimeout(() => {
-          chrome.runtime.sendMessage({
-            action: "explainSelectedText",
-            data: selectedText
-          });
-        }, 100); // 2000ms = 2 seconds
-
-      } else {
-        alert("Popup blocked! Please allow popups for this site.");
-      }
+      chrome.action.setPopup({ popup: "popup.html" });
     });
 
     buttonContainer.appendChild(searchButton);
