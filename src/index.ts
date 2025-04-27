@@ -66,6 +66,53 @@ async function explain() {
     return response.text ?? "";
 }
 
+async function getFeedback() {
+    const codeSnippetArea = document.getElementById("code_snippet_area") as HTMLTextAreaElement
+    const codeSnippet = codeSnippetArea!.value;
+    const studentAnswerArea = document.getElementById("student_answer_area") as HTMLTextAreaElement
+    const studentAnswer = studentAnswerArea!.value;
+    const response = await ai.models.generateContent({
+        model: 'gemini-2.0-flash-001',
+        contents: 
+`You are an expert coding tutor. Follow these steps carefully: Rate the difficulty of the provided code snippet on a scale from 1 to 5: 1 = Very easy, 5 = Very complex.
+Grade the student's explanation of the code on a scale from 1 to 5:
+1 = No understanding of the code. 2–3 = Partial or unclear understanding. 4 = Good understanding of the main concepts. 5 = Clear and complete understanding of the main concepts, even if the explanation is brief. 
+
+Important: A student's explanation can be short and still deserve a 5 if it accurately captures the main ideas and functionality of the code.` +
+`Provide a short feedback comment (1–2 sentences) to the student explaining what they got right and/or what they missed (if anything).
+
+Respond only in the following format:
+Difficulty: [1-5]
+Understanding Score: [1-5]
+Brief Feedback: [short comment]
+
+Here is the code snippet: ` + codeSnippet + 
+'Here is the student\'s explanation: ' + studentAnswer
+    });
+    return response.text ?? "";
+}
+
+async function quizFeedback() {
+    const geminiResponse = await getFeedback();
+    const splitResponse = geminiResponse.split('\n');
+
+    const difficulty = splitResponse[0] || '';
+    const understandingScore = splitResponse[1] || '';
+    const feedback = splitResponse[2] || '';
+
+    const xpGained = await calculateXP(difficulty, understandingScore);
+    // Send the XP gained to the content script
+    // chrome.runtime.sendMessage({ xpGained: xpGained }, (response) => {
+}
+
+async function calculateXP(difficulty: string, understandingScore: string) {
+    const cleanDifficulty = parseInt(difficulty.replace(/\D/g, ''));
+    const cleanUnderstandingScore = parseInt(understandingScore.replace(/\D/g, ''));
+    
+    const xpGained = (cleanDifficulty + cleanUnderstandingScore) * 2 + Math.min(cleanDifficulty, cleanUnderstandingScore);
+    return xpGained;
+}
+
 
 const explainButton = document.getElementById("explain") as HTMLButtonElement;
 const translateButton = document.getElementById("translate") as HTMLButtonElement;
