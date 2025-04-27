@@ -22,10 +22,7 @@ async function ensureContentScript(tabId: number) {
 }
 
 
-chrome.runtime.sendMessage({ popupOpened: true }, (response) => {
-    console.log('Got response from background:', response);
-    // do stuff with the response
-});
+
 
 
 const ai = new GoogleGenAI({ apiKey: "AIzaSyDwYwlAV2A3eyVi1x68oy3zPB2mx1U641A" });
@@ -40,6 +37,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         explainButton.click();
     }
 });
+
 
 
 
@@ -173,12 +171,43 @@ translateButton!.addEventListener("click", async () => {
     outputBox!.innerHTML = await marked.parse(output);
 })
 
-const toggle = document.getElementById("toggle") as HTMLInputElement
-toggle!.addEventListener("click", async () => {
-    window.postMessage({
-        source: 'my-extension',
-        type: 'FROM_A',
-        payload: toggle.value,
-    }, '*');
-})
+document.addEventListener('DOMContentLoaded', () => {
+    let toggle = document.getElementById("toggleT") as HTMLInputElement | null;
+
+    if (!toggle) {
+        console.error('Toggle element not found!');
+        return;
+    }
+
+    chrome.storage.local.get(["highlightEnabled"]).then((result) => {
+        if (result["highlightEnabled"]) {
+            toggle!.checked = true
+        } else {
+            toggle!.checked = false
+        }
+    })
+
+    toggle.addEventListener("click", () => {
+        toggle = document.getElementById("toggleT") as HTMLInputElement | null;
+        chrome.storage.local.get(["highlightEnabled"]).then((result) => {
+            if (result["highlightEnabled"]) {
+                chrome.storage.local.set({ highlightEnabled: false }, () => {
+
+
+                });
+            } else {
+                chrome.storage.local.set({ highlightEnabled: true }, () => {
+
+                });
+            }
+        })
+
+    });
+});
+
+
+
+
+
+
 

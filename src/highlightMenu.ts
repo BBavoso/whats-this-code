@@ -1,7 +1,7 @@
 let popupDiv: HTMLDivElement | null = null;
 let popupTimeout: number | undefined;
 
-let popupWindowOn = true;
+let popupWindowOn = false;
 let wordLimit = 50; // Maximum length of text to be processed
 let highlightMenuTimeOut = 7500; // Time in milliseconds to show the highlight menu
 
@@ -9,23 +9,37 @@ let highlightMenuTimeOut = 7500; // Time in milliseconds to show the highlight m
 //   // Control + B toggles popup-up window
 //   if (event.ctrlKey && event.key === 'b') {
 //     popupWindowOn = !popupWindowOn;
-//     alert(`Popup window ${popupWindowOn ? "on" : "off"}`);
+
 //   }
 // }
+
+
+chrome.storage.onChanged.addListener((changes, namespace) => {
+  console.log(`Changes detected in the "${namespace}" storage area.`);
+  for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
+
+    if (key === "highlightEnabled") {
+      if (newValue === true) {
+        popupWindowOn = true
+      } else {
+        popupWindowOn = false
+      }
+    }
+  }
+});
+
+
+
 
 
 
 // Attach the listener
 // window.addEventListener('keydown', toggleOnShortcut);
 
-window.addEventListener('message', (event) => {
-  // Always verify the source!
-  if (event.source !== window) return;
-  if (event.data.source === 'my-extension' && event.data.type === 'FROM_A') {
-    popupWindowOn = event.data.payload;
-  }
-});
 
+document.addEventListener('DOMContentLoaded', () => {
+  console.log("hello");
+});
 
 
 function truncateText(input: string, wordLimit: number = 50): string {
@@ -60,7 +74,6 @@ document.addEventListener("mouseup", (event: MouseEvent) => {
 
   if (selectedText.length > 0 && popupWindowOn) {
     selectedText = truncateText(selectedText, wordLimit);
-
     // Create popup using classes instead of inline styles
     popupDiv = document.createElement("div");
     popupDiv.className = "popup";
@@ -139,3 +152,12 @@ document.addEventListener("mouseup", (event: MouseEvent) => {
     });
   }
 });
+
+// chrome.runtime.sendMessage({
+//   type: "STORE_DATA",
+//   payload: {
+//     selectedText: popupWindowOn
+//   }
+// });
+
+
