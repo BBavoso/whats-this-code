@@ -21,21 +21,16 @@ async function ensureContentScript(tabId: number) {
     });
 }
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    console.log("Message received from popup:", message);
-  
-    if (message.action === "explainSelectedText") {
-      const inputArea = document.getElementById("input_area") as HTMLTextAreaElement;
-      inputArea.value = message.data;
-  
-      const explainButton = document.getElementById("explain") as HTMLButtonElement;
-      explainButton.click();
-    }
-});
 
-chrome.runtime.sendMessage({ popupOpened: true }, (response) => {
-    console.log('Got response from background:', response);
-    // do stuff with the response
+
+
+const openNewTabButton = document.getElementById("history") as HTMLButtonElement;
+
+openNewTabButton.addEventListener("click", async () => {
+    // Open a new tab with the newTab.html
+    chrome.tabs.create({
+        url: chrome.runtime.getURL('dist/history.html')  // This will load the 'newTab.html' file in a new tab
+    });
 });
 
 
@@ -51,6 +46,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         explainButton.click();
     }
 });
+
 
 
 
@@ -183,3 +179,44 @@ translateButton!.addEventListener("click", async () => {
     const output = await response as string;
     outputBox!.innerHTML = await marked.parse(output);
 })
+
+document.addEventListener('DOMContentLoaded', () => {
+    let toggle = document.getElementById("toggleT") as HTMLInputElement | null;
+
+    if (!toggle) {
+        console.error('Toggle element not found!');
+        return;
+    }
+
+    chrome.storage.local.get(["highlightEnabled"]).then((result) => {
+        if (result["highlightEnabled"]) {
+            toggle!.checked = true
+        } else {
+            toggle!.checked = false
+        }
+    })
+
+    toggle.addEventListener("click", () => {
+        toggle = document.getElementById("toggleT") as HTMLInputElement | null;
+        chrome.storage.local.get(["highlightEnabled"]).then((result) => {
+            if (result["highlightEnabled"]) {
+                chrome.storage.local.set({ highlightEnabled: false }, () => {
+
+
+                });
+            } else {
+                chrome.storage.local.set({ highlightEnabled: true }, () => {
+
+                });
+            }
+        })
+
+    });
+});
+
+
+
+
+
+
+

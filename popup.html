@@ -15,6 +15,7 @@
   <div id="buttons">
     <button id="translate" class="button">Translate</button>
     <button id="explain" class="button">Explain</button>
+    <button id="history" class="button">History</button>
     <textarea id="languageInput" class="button" placeholder="input translation language....."></textarea>
 
   </div>
@@ -22,6 +23,22 @@
   <script src="popup.js" defer></script>
 </body>
 
+<!-- Toggle Switch -->
+<div class="toggle-container">
+  <span class="toggle-label">Mode</span>
+  <label class="toggle-switch">
+    <input type="checkbox" id="toggleT">
+    <span class="toggle-slider"></span>
+  </label>
+</div>
 
+<!-- <script>
+    // Toggle switch functionality
+    document.getElementById('toggle').addEventListener('change', function() {
+      const isChecked = this.checked;
+      console.log("Toggle is now:", isChecked ? "ON" : "OFF");
+      // You can add functionality here to change the app's behavior based on toggle state
+    });
+  </script> -->
 
 </html>

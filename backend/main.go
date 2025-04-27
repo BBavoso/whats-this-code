@@ -75,7 +75,6 @@ func getQuestionsHandler(w http.ResponseWriter, r *http.Request) {
 	// Find the user in the database
 	var result bson.M
 	filter := bson.M{"name": name}
-	log.Printf("Filter: %+v\n", filter)
 
 	err := coll.FindOne(context.TODO(), filter).Decode(&result)
 	if err != nil {

@@ -16,7 +16,7 @@ const CONTEXT_MENUS = [
   {
     id: 'searchStackOverflow',
     title: 'Search StackOverflow for "%s"',
-    url: (query: string ) => `https://stackoverflow.com/search?q=${query}`,
+    url: (query: string) => `https://stackoverflow.com/search?q=${query}`,
   },
 ];
 
@@ -31,6 +31,7 @@ chrome.runtime.onInstalled.addListener(() => {
       contexts: ["selection"]
     })
   });
+  chrome.storage.local.set({ highlightEnabled: false }).then(() => { });
 });
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
@@ -46,4 +47,19 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
       }
     });
   }
+});
+
+var cachedData = ""; // store whatever the content script sends
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.type === "STORE_DATA") {
+    cachedData = message.payload;
+    console.log('Data stored in background:', cachedData);
+  }
+
+  if (message.type === "GET_DATA") {
+    sendResponse(cachedData);
+  }
+
+  return true; // Needed if you want to send a response asynchronously
 });
