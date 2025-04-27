@@ -1,179 +1,193 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Helvetica Neue', 'Arial', sans-serif;
 }
 
 body {
-    height: 400px;
-    width: 800px;
-    background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  height: 400px;
+  width: 800px;
+  background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    height: 100%;
-    width: 100%;
-    flex-direction: row;
-    gap: 20px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100%;
+  width: 100%;
+  flex-direction: row;
+  gap: 20px;
 }
 
 /* Buttons */
 .button {
-    width: 200px;
-    height: 50px;
-    background: #6c63ff;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    margin-left: 10px;
-    transition: all 0.3s ease;
-    font-size: 16px;
-    font-weight: 600;
+  width: 200px;
+  height: 50px;
+  background: #6c63ff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin-left: 10px;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .button:hover {
-    cursor: pointer;
-    background: #5850ec;
+  cursor: pointer;
+  background: #5850ec;
 }
 
 /* Special case for last button */
 .button:last-child {
-    background: #ffffff;
-    color: #334e68;
-    border: 2px dashed #6c63ff;
-    border-radius: 10px;
-    width: 200px;
-    height: 50px;
-    margin-left: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    text-align: left;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: text;
-    display: flex;
-    align-items: center;
-    padding: 0 12px;
-    overflow: hidden;
-    white-space: nowrap;
-    transition: all 0.3s ease;
+  background: #ffffff;
+  color: #334e68;
+  border: 2px dashed #6c63ff;
+  border-radius: 10px;
+  width: 200px;
+  height: 50px;
+  margin-left: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  text-align: left;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: text;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: all 0.3s ease;
 }
 
 
 .button:last-child:hover {
-    background: #f0f4f8;
+  background: #f0f4f8;
 }
 
 /* Buttons container */
 #buttons {
-    position: absolute;
-    display: flex;
-    bottom: 25px;
-    left: 75px;
-    gap: 15px;
-    flex-direction: row;
-    align-items: center;
-    z-index: 3;
-    width: calc(100% - 150px);
+  position: absolute;
+  display: flex;
+  bottom: 25px;
+  left: 75px;
+  gap: 15px;
+  flex-direction: row;
+  align-items: center;
+  z-index: 3;
+  width: calc(100% - 150px);
 }
 
 /* Textareas */
 .textareas {
-    resize: none;
-    border: 2px solid #bcccdc;
-    border-radius: 10px;
-    height: 60%;
-    width: 42%;
-    padding: 15px;
-    margin-top: 40px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    font-size: 14px;
-    color: #334e68;
+  resize: none;
+  border: 2px solid #bcccdc;
+  border-radius: 10px;
+  height: 60%;
+  width: 42%;
+  padding: 15px;
+  margin-top: 40px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  font-size: 14px;
+  color: #334e68;
 }
 
 textarea::placeholder {
-    text-align: center;
-    color: #829ab1;
-    font-size: 14px;
+  text-align: center;
+  color: #829ab1;
+  font-size: 14px;
 }
 
 #input_area {
-    position: relative;
+  position: relative;
 }
 
 #output_area {
-    overflow-y: scroll;
-    padding-left: 15px;
+  overflow-y: scroll;
+  padding-left: 15px;
 }
 
 
-  /* Toggle Switch Styles */
-  .toggle-container {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    z-index: 10;
-  }
+/* Toggle Switch Styles */
+.toggle-container {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 10;
+}
 
-  .toggle-label {
-    font-size: 12px;
-    color: #334e68;
-    user-select: none;
-  }
+.toggle-label {
+  font-size: 12px;
+  color: #334e68;
+  user-select: none;
+}
 
-  .toggle-switch {
-    position: relative;
-    display: inline-block;
-    width: 36px;
-    height: 20px;
-  }
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+}
 
-  .toggle-switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
 
-  .toggle-slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: .3s;
-    border-radius: 20px;
-  }
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .3s;
+  border-radius: 20px;
+}
 
-  .toggle-slider:before {
-    position: absolute;
-    content: "";
-    height: 16px;
-    width: 16px;
-    left: 2px;
-    bottom: 2px;
-    background-color: white;
-    transition: .3s;
-    border-radius: 50%;
-  }
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
 
-  input:checked + .toggle-slider {
-    background-color: #6c63ff;
-  }
+input:checked+.toggle-slider {
+  background-color: #6c63ff;
+}
 
-  input:checked + .toggle-slider:before {
-    transform: translateX(16px);
-  }
+input:checked+.toggle-slider:before {
+  transform: translateX(16px);
+}
+
+#historyButton {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  height: 25px;
+  width: 25px;
+}
+
+#historyButton:hover {
+  cursor: pointer;
+  height: 27px;
+  width: 27px;
+}
