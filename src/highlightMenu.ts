@@ -106,7 +106,7 @@ document.addEventListener("mouseup", (event: MouseEvent) => {
       return button;
     }
 
-    
+
     // Create dropdown menu
     function createDropdown(options: string[], onSelect: (option: string) => void): HTMLDivElement {
       const dropdown = document.createElement("div");

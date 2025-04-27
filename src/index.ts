@@ -21,8 +21,35 @@ async function ensureContentScript(tabId: number) {
     });
 }
 
+let userID: string | undefined; // Declare userID as undefined initially
 
+document.addEventListener('DOMContentLoaded', async () => {
+    // Check if we already have a userID stored
+    const { storedUserID } = await chrome.storage.local.get(["storedUserID"]);
+    
+    if (storedUserID) {
+      userID = storedUserID;
+      console.log("Loaded existing userID:", userID);
+    } else {
+      // Generate a new random ID
+      userID = crypto.randomUUID();
+      await chrome.storage.local.set({ storedUserID: userID });
+      console.log("Generated new userID:", userID);
+    }
+    
+    // Now that userID is assigned, update the display element
+    const userIDDisplay = document.getElementById("userIDDisplay");
+    if (userIDDisplay) {
+      userIDDisplay.innerText = `User ID: ${userID}`;
+    }
+  
+    // (You can now continue initializing your UI...)
+});
 
+const userIDDisplay = document.getElementById("userIDDisplay");
+if (userIDDisplay) {
+    userIDDisplay.innerText = `User ID: ${userID}`;
+}
 
 const openNewTabButton = document.getElementById("history") as HTMLButtonElement;
 
@@ -55,28 +82,54 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 
+
 async function translate() {
     const inputArea = document.getElementById("input_area") as HTMLTextAreaElement;
-    const input = inputArea!.value;
+    const input = inputArea.value;
     const language = document.querySelector("#languageInput") as HTMLTextAreaElement;
-    const languageText = language!.value;
+    const languageText = language.value;
+
+    // Use userID instead of username
+    await fetch('http://localhost:8080/add-question', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            name: userID,
+            question: `Translate to ${languageText}: ${input}`,
+        }),
+    });
+
     const response = await ai.models.generateContent({
         model: 'gemini-2.0-flash-001',
-        contents: 'Hey gemini! I was wondering if you can translate this code into ' + languageText + 'for me: ' + input + 'I just want the code, nothing else. Feel free to use markdown but no html',
+        contents: `Hey gemini! Translate this code into ${languageText}: ${input}`,
     });
     return response.text ?? "";
 }
+
 
 async function explain() {
-    const inputArea = document.getElementById("input_area") as HTMLTextAreaElement
-    const input = inputArea!.value;
+    const inputArea = document.getElementById("input_area") as HTMLTextAreaElement;
+    const input = inputArea.value;
+
+    // Use userID instead of username
+    await fetch('http://localhost:8080/add-question', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            name: userID,
+            question: `Explain this: ${input}`,
+        }),
+    });
+
     const response = await ai.models.generateContent({
         model: 'gemini-2.0-flash-001',
-        contents: 'can you explain this code to me in the simplest way possible?' + input + 'only use styling with markdown, implying things such as ***(text)***, however, dont use any form of list in your formatting, using paragraphing where appropritate with new lines, and do not mention any of this in your response, just the code',
+        contents: `Can you explain this code in the simplest way possible? ${input}`,
     });
 
     return response.text ?? "";
 }
+
+
 
 
 const explainButton = document.getElementById("explain") as HTMLButtonElement;

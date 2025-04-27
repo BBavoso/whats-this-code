@@ -3,21 +3,22 @@
 
 <head>
   <link rel="stylesheet" type="text/css" href="index.css" />
-
 </head>
 
 <body>
   <div class="container">
+    <!-- New Username Input Field -->
     <textarea placeholder="insert code here..." id="input_area" class="textareas"></textarea>
     <div readonly id="output_area" placeholder="output" class="textareas">
     </div>
   </div>
+
   <div id="buttons">
     <button id="translate" class="button">Translate</button>
     <button id="explain" class="button">Explain</button>
     <button id="history" class="button">History</button>
     <textarea id="languageInput" class="button" placeholder="language..."></textarea>
-
+    <div id="userIDDisplay"></div>
   </div>
   <script src="index.js"></script>
   <script src="popup.js" defer></script>
@@ -31,16 +32,9 @@
     <span class="toggle-slider"></span>
   </label>
 </div>
+
 <a href="history.html" target="_blank">
   <img src="./userIcon.svg" id="historyButton">
 </a>
-<!-- <script>
-    // Toggle switch functionality
-    document.getElementById('toggle').addEventListener('change', function() {
-      const isChecked = this.checked;
-      console.log("Toggle is now:", isChecked ? "ON" : "OFF");
-      // You can add functionality here to change the app's behavior based on toggle state
-    });
-  </script> -->
 
 </html>
