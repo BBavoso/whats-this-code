@@ -90,7 +90,21 @@ document.addEventListener("mouseup", (event: MouseEvent) => {
     });
 
     const explainButton = createButton("Explain", () => {
-      alert(`Explain: ${selectedText}`);
+      const popupUrl = chrome.runtime.getURL('dist/popup.html');
+      const popupWindow = window.open(popupUrl, "_blank");
+    
+      if (popupWindow) {
+        // Wait for 2 seconds (adjust as needed) before sending the message
+        setTimeout(() => {
+          chrome.runtime.sendMessage({
+            action: "explainSelectedText",
+            data: selectedText
+          });
+        }, 100); // 2000ms = 2 seconds
+
+      } else {
+        alert("Popup blocked! Please allow popups for this site.");
+      }
     });
 
     buttonContainer.appendChild(searchButton);
