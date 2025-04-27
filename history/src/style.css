@@ -1,26 +1,26 @@
 :root {
-  --color-primary-100: #E6F0FA;
-  --color-primary-200: #CCE0F5;
-  --color-primary-300: #99C2EB;
-  --color-primary-400: #66A3E0;
-  --color-primary-500: #0066CC;
-  --color-primary-600: #0052A3;
-  --color-primary-700: #003D7A;
+  --color-primary-100: #1a2433;
+  --color-primary-200: #243447;
+  --color-primary-300: #2d4356;
+  --color-primary-400: #385273;
+  --color-primary-500: #4267b2;
+  --color-primary-600: #577bc1;
+  --color-primary-700: #7b96d1;
 
-  --color-neutral-50: #F9F9FB;
-  --color-neutral-100: #F2F2F7;
-  --color-neutral-200: #E5E5EA;
-  --color-neutral-300: #D1D1D6;
-  --color-neutral-400: #C7C7CC;
-  --color-neutral-500: #8E8E93;
-  --color-neutral-600: #636366;
-  --color-neutral-700: #48484A;
-  --color-neutral-800: #3A3A3C;
-  --color-neutral-900: #1C1C1E;
+  --color-neutral-50: #121212;
+  --color-neutral-100: #1e1e1e;
+  --color-neutral-200: #2d2d2d;
+  --color-neutral-300: #404040;
+  --color-neutral-400: #4d4d4d;
+  --color-neutral-500: #808080;
+  --color-neutral-600: #a3a3a3;
+  --color-neutral-700: #cccccc;
+  --color-neutral-800: #e6e6e6;
+  --color-neutral-900: #ffffff;
 
-  --color-success-500: #34C759;
-  --color-warning-500: #FF9500;
-  --color-error-500: #FF3B30;
+  --color-success-500: #34c759;
+  --color-warning-500: #ff9500;
+  --color-error-500: #ff3b30;
 
   --spacing-1: 4px;
   --spacing-2: 8px;
@@ -31,16 +31,18 @@
   --spacing-7: 48px;
   --spacing-8: 64px;
 
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.05), 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.2);
 
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
   --radius-full: 9999px;
 
-  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-family:
+    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+    'Open Sans', 'Helvetica Neue', sans-serif;
   --line-height-body: 1.5;
   --line-height-heading: 1.2;
 
@@ -55,7 +57,8 @@
   padding: 0;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   width: 100%;
 }
@@ -84,8 +87,8 @@ body {
 }
 
 header {
-  background-color: var(--color-primary-500);
-  color: white;
+  background-color: var(--color-neutral-100);
+  color: var(--color-neutral-900);
   padding: var(--spacing-4) 0;
   box-shadow: var(--shadow-md);
   position: sticky;
@@ -123,10 +126,10 @@ header {
 }
 
 .search-input {
-  background-color: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: var(--color-neutral-200);
+  border: 1px solid var(--color-neutral-300);
   border-radius: var(--radius-full);
-  color: white;
+  color: var(--color-neutral-900);
   padding: var(--spacing-2) var(--spacing-5);
   font-size: 0.875rem;
   width: 200px;
@@ -134,28 +137,20 @@ header {
 }
 
 .search-input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-neutral-600);
 }
 
 .search-input:focus {
   outline: none;
-  background-color: rgba(255, 255, 255, 0.3);
+  border-color: var(--color-primary-500);
   width: 240px;
 }
 
-.search-icon {
-  position: absolute;
-  left: var(--spacing-2);
-  top: 50%;
-  transform: translateY(-50%);
-  color: rgba(255, 255, 255, 0.7);
-}
-
 .user-name {
-  background-color: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: var(--color-neutral-200);
+  border: 1px solid var(--color-neutral-300);
   border-radius: var(--radius-full);
-  color: white;
+  color: var(--color-neutral-900);
   padding: var(--spacing-2) var(--spacing-4);
   font-size: 0.875rem;
 }
@@ -183,8 +178,8 @@ main {
 }
 
 .questions-count {
-  background-color: var(--color-primary-100);
-  color: var(--color-primary-700);
+  background-color: var(--color-primary-200);
+  color: var(--color-primary-500);
   padding: var(--spacing-1) var(--spacing-2);
   border-radius: var(--radius-full);
   font-size: 0.75rem;
@@ -198,7 +193,7 @@ main {
 }
 
 .question-item {
-  background-color: white;
+  background-color: var(--color-neutral-100);
   border-radius: var(--radius-md);
   padding: var(--spacing-4);
   box-shadow: var(--shadow-sm);
@@ -207,6 +202,7 @@ main {
   position: relative;
   overflow: hidden;
   animation: fadeIn 0.3s ease-out;
+  border: 1px solid var(--color-neutral-200);
 }
 
 @keyframes fadeIn {
@@ -223,28 +219,23 @@ main {
 .question-item:hover {
   box-shadow: var(--shadow-md);
   transform: translateY(-2px);
+  border-color: var(--color-primary-500);
 }
 
 .question-text {
   font-size: 1rem;
   color: var(--color-neutral-800);
-  margin-bottom: var(--spacing-2);
 }
 
 .question-meta {
   display: flex;
-  align-items: center;
-  font-size: 0.75rem;
-  color: var(--color-neutral-500);
-}
-
-.question-date {
-  margin-right: var(--spacing-3);
+  justify-content: flex-end;
+  margin-top: var(--spacing-2);
 }
 
 .copy-button {
   background-color: transparent;
-  color: var(--color-primary-500);
+  color: var(--color-neutral-600);
   border: none;
   font-size: 0.75rem;
   cursor: pointer;
@@ -252,24 +243,30 @@ main {
   align-items: center;
   gap: var(--spacing-1);
   transition: var(--transition-fast);
-  padding: var(--spacing-1) var(--spacing-2);
+  padding: var(--spacing-1);
   border-radius: var(--radius-sm);
+  opacity: 0;
+}
+
+.question-item:hover .copy-button {
+  opacity: 1;
 }
 
 .copy-button:hover {
-  background-color: var(--color-primary-100);
+  color: var(--color-primary-500);
 }
 
 .empty-state {
   margin-top: var(--spacing-7);
   text-align: center;
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-600);
 }
 
 .empty-state-title {
   font-size: 1.25rem;
   font-weight: 500;
   margin-bottom: var(--spacing-2);
+  color: var(--color-neutral-800);
 }
 
 .empty-state-message {
@@ -288,7 +285,7 @@ main {
 .loading-spinner {
   width: 40px;
   height: 40px;
-  border: 3px solid var(--color-primary-100);
+  border: 3px solid var(--color-neutral-200);
   border-radius: 50%;
   border-top-color: var(--color-primary-500);
   animation: spin 1s linear infinite;
@@ -310,12 +307,13 @@ main {
 }
 
 .user-input-container {
-  background-color: white;
+  background-color: var(--color-neutral-100);
   padding: var(--spacing-4);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
   margin-bottom: var(--spacing-6);
   animation: slideDown 0.3s ease-out;
+  border: 1px solid var(--color-neutral-200);
 }
 
 @keyframes slideDown {
@@ -344,16 +342,18 @@ main {
 .user-input {
   flex: 1;
   padding: var(--spacing-3);
+  background-color: var(--color-neutral-200);
   border: 1px solid var(--color-neutral-300);
   border-radius: var(--radius-md);
   font-size: 0.875rem;
   transition: var(--transition-fast);
+  color: var(--color-neutral-900);
 }
 
 .user-input:focus {
   outline: none;
   border-color: var(--color-primary-500);
-  box-shadow: 0 0 0 2px var(--color-primary-100);
+  box-shadow: 0 0 0 2px var(--color-primary-200);
 }
 
 .submit-button {
@@ -375,6 +375,7 @@ footer {
   background-color: var(--color-neutral-100);
   padding: var(--spacing-4) 0;
   margin-top: auto;
+  border-top: 1px solid var(--color-neutral-200);
 }
 
 .footer-content {
@@ -405,30 +406,30 @@ footer {
     flex-direction: column;
     gap: var(--spacing-3);
   }
-  
+
   .controls {
     width: 100%;
     justify-content: space-between;
   }
-  
+
   .search-input {
     width: 150px;
   }
-  
+
   .search-input:focus {
     width: 180px;
   }
-  
+
   .user-input-form {
     flex-direction: column;
   }
-  
+
   .footer-content {
     flex-direction: column;
     gap: var(--spacing-3);
     text-align: center;
   }
-  
+
   .footer-links {
     justify-content: center;
   }
