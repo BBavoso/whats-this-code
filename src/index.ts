@@ -38,6 +38,15 @@ chrome.runtime.sendMessage({ popupOpened: true }, (response) => {
     // do stuff with the response
 });
 
+const openNewTabButton = document.getElementById("history") as HTMLButtonElement;
+
+openNewTabButton.addEventListener("click", async () => {
+    // Open a new tab with the newTab.html
+    chrome.tabs.create({
+        url: chrome.runtime.getURL('dist/history.html')  // This will load the 'newTab.html' file in a new tab
+    });
+});
+
 
 const ai = new GoogleGenAI({ apiKey: "AIzaSyDwYwlAV2A3eyVi1x68oy3zPB2mx1U641A" });
 
