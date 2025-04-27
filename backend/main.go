@@ -54,33 +54,31 @@ func main() {
 
 // Handler to get questions for a specific person
 func getQuestionsHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("here in getQuestionsHandler")
+	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Origin")
+	w.Header().Set("Access-Control-Allow-Credentials", "true")
+
 	if r.Method != http.MethodGet {
 		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
 		return
 	}
 
-	// // Get the "name" query parameter
-	// name := r.URL.Query().Get("name")
-	// if name == "" {
-	// 	http.Error(w, "Missing 'name' query parameter", http.StatusBadRequest)
-	// 	return
-	// }
-
-	var payload struct {
-		Name string `json:"name"`
-	}
-	err := json.NewDecoder(r.Body).Decode(&payload)
-	if err != nil || payload.Name == "" {
-		http.Error(w, "Invalid request payload", http.StatusBadRequest)
+	// Get the "name" query parameter
+	name := r.URL.Query().Get("name")
+	log.Printf("Name: %s\n", name)
+	if name == "" {
+		http.Error(w, "Missing 'name' query parameter", http.StatusBadRequest)
 		return
 	}
 
 	// Find the user in the database
 	var result bson.M
-	filter := bson.M{"name": payload.Name}
+	filter := bson.M{"name": name}
 	log.Printf("Filter: %+v\n", filter)
 
-	err = coll.FindOne(context.TODO(), filter).Decode(&result)
+	err := coll.FindOne(context.TODO(), filter).Decode(&result)
 	if err != nil {
 		log.Printf("FindOne error: %v\n", err)
 		http.Error(w, "User not found", http.StatusNotFound)
@@ -90,7 +88,7 @@ func getQuestionsHandler(w http.ResponseWriter, r *http.Request) {
 	// Extract questions and send as JSON response
 	questions, ok := result["questions"]
 	if !ok {
-		http.Error(w, "No questions found for the user: "+payload.Name, http.StatusInternalServerError)
+		http.Error(w, "No questions found for the user: "+name, http.StatusInternalServerError)
 		return
 	}
 	json.NewEncoder(w).Encode(questions)
@@ -98,6 +96,11 @@ func getQuestionsHandler(w http.ResponseWriter, r *http.Request) {
 
 // Handler to add a question for a specific person
 func addQuestionHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
+	w.Header().Set("Access-Control-Allow-Methods", "PUT, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Origin")
+	w.Header().Set("Access-Control-Allow-Credentials", "true")
+
 	if r.Method != http.MethodPut {
 		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
 		return
