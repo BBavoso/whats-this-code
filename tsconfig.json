@@ -7,7 +7,8 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "types": ["chrome"]
+    "types": ["chrome"],
+    "jsx": "react"
   },
   "exclude": ["node_modules", "history"]
 }
