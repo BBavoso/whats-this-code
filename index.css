@@ -108,3 +108,8 @@ textarea::placeholder {
 #input_area {
     position: relative;
 }
+
+#output_area {
+    overflow-y: scroll;
+    padding-left: 15px;
+}

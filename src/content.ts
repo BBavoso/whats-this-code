@@ -1,8 +1,14 @@
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.action === "setText") {
-        const input = document.getElementById("input_area") as HTMLTextAreaElement;
-        if (input) {
-            input.value = message.text;
+
+chrome.runtime.onMessage.addListener(
+    (message: { action: string }, sender, sendResponse) => {
+        if (message.action === "getSelectedText") {
+            const selection = window.getSelection();
+            const selectedText = selection ? selection.toString() : "";
+
+            sendResponse({ selectedText });
         }
+
+        // Needed because we send response asynchronously
+        return true;
     }
-});
+);

@@ -3,11 +3,25 @@
   "name": "What's This Code?",
   "version": "0.0.1",
   "description": "Explains Code",
-  "permissions": ["storage"],
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
   "background": {
     "service_worker": "dist/background.js"
   },
   "action": {
     "default_popup": "dist/popup.html"
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "dist/content.js"
+      ]
+    }
+  ]
 }
