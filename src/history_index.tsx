@@ -19,9 +19,11 @@ const History = () => {
 
     setLoading(true); // Set loading state for GET request
 
+
     try {
-      const response = await fetch(`http://localhost:8080/get-question?name=${name}`);
+      const response = await fetch(`http://localhost:8080/get-questions/${name}`);
       const result = await response.json(); // Assuming the response is JSON
+      console.log(result);
 
       if (response.ok) {
         setData(result); // Store fetched data
@@ -66,10 +68,8 @@ const History = () => {
         {data.length > 0 ? (
           data.map((item) => (
             <li key={item.id} style={{ marginBottom: '15px', padding: '10px', border: '1px solid #ddd', borderRadius: '5px' }}>
-              <h3>Name:</h3>
-              <p>{item.name}</p>
-              <h3>Prompt:</h3>
-              <p>{item.prompt}</p>
+              <h3>Question:</h3>
+              <p>{item}</p>
             </li>
           ))
         ) : (
