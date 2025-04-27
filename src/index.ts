@@ -21,17 +21,6 @@ async function ensureContentScript(tabId: number) {
     });
 }
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    console.log("Message received from popup:", message);
-  
-    if (message.action === "explainSelectedText") {
-      const inputArea = document.getElementById("input_area") as HTMLTextAreaElement;
-      inputArea.value = message.data;
-  
-      const explainButton = document.getElementById("explain") as HTMLButtonElement;
-      explainButton.click();
-    }
-});
 
 chrome.runtime.sendMessage({ popupOpened: true }, (response) => {
     console.log('Got response from background:', response);
@@ -192,3 +181,13 @@ translateButton!.addEventListener("click", async () => {
     const output = await response as string;
     outputBox!.innerHTML = await marked.parse(output);
 })
+
+const toggle = document.getElementById("toggle") as HTMLInputElement
+toggle!.addEventListener("click", async () => {
+    window.postMessage({
+        source: 'my-extension',
+        type: 'FROM_A',
+        payload: toggle.value,
+    }, '*');
+})
+
