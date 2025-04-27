@@ -106,16 +106,82 @@ document.addEventListener("mouseup", (event: MouseEvent) => {
       return button;
     }
 
+    
+    // Create dropdown menu
+    function createDropdown(options: string[], onSelect: (option: string) => void): HTMLDivElement {
+      const dropdown = document.createElement("div");
+      dropdown.className = "dropdown-menu";
+
+      options.forEach(option => {
+        const item = document.createElement("div");
+        item.className = "dropdown-item";
+        item.textContent = option;
+        item.addEventListener("click", (e: MouseEvent) => {
+          e.stopPropagation();
+          onSelect(option);
+          dropdown.remove(); // Close dropdown after selection
+        });
+        dropdown.appendChild(item);
+      });
+
+      return dropdown;
+    }
+
+    // Search button logic
     const searchButton = createButton("Search", () => {
-      window.open(`https://www.google.com/search?q=${encodeURIComponent(selectedText)}`, "_blank");
+      // Check if dropdown already exists and remove it
+      const existingDropdown = document.querySelector(".dropdown-menu");
+      if (existingDropdown) {
+        existingDropdown.remove();
+        return;
+      }
+
+      const dropdown = createDropdown(["GitHub", "StackOverflow"], (selection) => {
+        if (selection === "GitHub") {
+          window.open(`https://github.com/search?q="${selectedText}"&type=code`, "_blank");
+        } else if (selection === "StackOverflow") {
+          window.open(`https://stackoverflow.com/search?q=${selectedText}`, "_blank");
+        }
+      });
+
+      // Position dropdown under the button
+      searchButton.insertAdjacentElement('afterend', dropdown);
     });
 
     const translateButton = createButton("Translate", () => {
-      window.open(`https://translate.google.com/?sl=auto&tl=en&text=${encodeURIComponent(selectedText)}&op=translate`, "_blank");
+      const popupUrl = chrome.runtime.getURL('dist/popup.html');
+      const popupWindow = window.open(popupUrl, "_blank");
+    
+      if (popupWindow) {
+        // Wait for 2 seconds (adjust as needed) before sending the message
+        setTimeout(() => {
+          chrome.runtime.sendMessage({
+            action: "translateSelectedText",
+            data: selectedText
+          });
+        }, 100); // 2000ms = 2 seconds
+
+      } else {
+        alert("Popup blocked! Please allow popups for this site.");
+      }
     });
 
     const explainButton = createButton("Explain", () => {
-      chrome.action.setPopup({ popup: "popup.html" });
+      const popupUrl = chrome.runtime.getURL('dist/popup.html');
+      const popupWindow = window.open(popupUrl, "_blank");
+    
+      if (popupWindow) {
+        // Wait for 2 seconds (adjust as needed) before sending the message
+        setTimeout(() => {
+          chrome.runtime.sendMessage({
+            action: "explainSelectedText",
+            data: selectedText
+          });
+        }, 100); // 2000ms = 2 seconds
+
+      } else {
+        alert("Popup blocked! Please allow popups for this site.");
+      }
     });
 
     buttonContainer.appendChild(searchButton);

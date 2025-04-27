@@ -47,7 +47,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     }
 });
 
-
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.action === "translateSelectedText") {
+        const inputArea = document.getElementById("input_area") as HTMLTextAreaElement;
+        inputArea.value = message.data; // Set the input box
+    }
+});
 
 
 async function translate() {
