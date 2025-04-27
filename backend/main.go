@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strings"
 
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/v2/bson"
@@ -55,28 +54,26 @@ func main() {
 
 // Handler to get questions for a specific person (name provided in the URL)
 func getQuestionsHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "*")
+	w.Header().Set("Access-Control-Allow-Credentials", "true")
+
 	if r.Method != http.MethodGet {
 		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
 		return
 	}
 
-	// Get the "name" from the URL path (after /get-questions/)
-	parts := strings.Split(r.URL.Path, "/")
-	if len(parts) < 3 {
-		http.Error(w, "Missing name in URL path", http.StatusBadRequest)
-		return
-	}
-
-	name := parts[2] // Extract the name from the URL
+	// Get the "name" query parameter
+	name := r.URL.Query().Get("name")
 	if name == "" {
-		http.Error(w, "Name is required", http.StatusBadRequest)
+		http.Error(w, "Missing 'name' query parameter", http.StatusBadRequest)
 		return
 	}
 
 	// Find the user in the database
 	var result bson.M
 	filter := bson.M{"name": name}
-	log.Printf("Filter: %+v\n", filter)
 
 	err := coll.FindOne(context.TODO(), filter).Decode(&result)
 	if err != nil {

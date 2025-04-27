@@ -14,18 +14,15 @@ export default defineConfig({
         content: resolve(__dirname, 'src/content.ts'),
         highlightMenu: resolve(__dirname, 'src/highlightMenu.ts'),
         history_index: resolve(__dirname, 'src/history_index.tsx'),
-
       },
       output: {
         entryFileNames: '[name].js',
         assetFileNames: '[name][extname]',
       },
-      
+      external: ['history/**'],
     },
     emptyOutDir: true,
     sourcemap: false,
     assetsDir: '',
   },
-  
-  
 });
