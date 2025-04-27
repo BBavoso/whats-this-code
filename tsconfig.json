@@ -7,7 +7,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "types": ["chrome"],
-    "jsx": "react"  // Add this line to enable JSX support
-  }
+    "types": ["chrome"]
+  },
+  "exclude": ["node_modules", "history"]
 }
