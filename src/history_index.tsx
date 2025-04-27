@@ -10,34 +10,40 @@ const History = () => {
 
   // Handle form submission (GET request to fetch user history)
   const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault(); // Prevent page refresh on form submit
-
+    event.preventDefault(); // Prevent page refresh
+  
     if (name.trim() === '') {
       alert('Name is required!');
       return;
     }
-
-    setLoading(true); // Set loading state for GET request
-
-
+  
+    setLoading(true); // Set loading state
+  
     try {
-      const response = await fetch(`http://localhost:8080/get-questions/${name}`);
-      const result = await response.json(); // Assuming the response is JSON
+      const response = await fetch(`http://localhost:8080/get-questions/?name=${name}`, {
+        method: 'GET',
+      });
+  
+      const result = await response.json();
       console.log(result);
-
+  
       if (response.ok) {
-        setData(result); // Store fetched data
+        // In your Go server, you return "questions", which is likely an array already
+        // But just in case it's not an array, make sure to handle it
+        setData(Array.isArray(result) ? result : []);
       } else {
         console.error('Failed to fetch data:', result);
-        setData([]); // Clear data if request fails
+        setData([]);
       }
     } catch (error) {
       console.error('Error fetching data: ', error);
-      setData([]); // Clear data if there was an error
+      setData([]);
     } finally {
-      setLoading(false); // Reset loading state
+      setLoading(false);
     }
   };
+  
+  
 
   // If data is still loading, display loading message
   if (loading) {
