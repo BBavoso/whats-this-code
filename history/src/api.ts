@@ -12,11 +12,8 @@ export async function fetchQuestions(name: string): Promise<string[]> {
     const response = await fetch(url, {
       method: 'GET',
       headers: {
-        Accept: 'application/json',
-        Origin: window.location.origin,
+        Accept: '*/*',
       },
-      credentials: 'include',
-      mode: 'no-cors', // This will prevent CORS errors but won't allow you to access the response data.
     });
 
     if (!response.ok) {
