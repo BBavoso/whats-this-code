@@ -62,6 +62,7 @@ body {
   display: flex;
   align-items: center;
   padding: 0 12px;
+  padding-top: 5px;
   overflow: hidden;
   white-space: nowrap;
   transition: all 0.3s ease;
