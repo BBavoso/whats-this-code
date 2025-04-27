@@ -3,19 +3,23 @@
 
 <head>
   <link rel="stylesheet" type="text/css" href="index.css" />
+
 </head>
 
 <body>
   <div class="container">
-    <textarea placeholder="insert code here..." id="input_area"></textarea>
-    <div id="output_area"></div>
+    <textarea placeholder="insert code here..." id="input_area" class="textareas"></textarea>
+    <div readonly id="output_area" placeholder="output" class="textareas">
+    </div>
   </div>
   <div id="buttons">
     <button id="translate" class="button">Translate</button>
     <button id="explain" class="button">Explain</button>
-    <script src="index.js"></script>
+    <textarea id="languageInput" class="button" placeholder="input translation language....."></textarea>
+
   </div>
-  <textarea id="languageInput" placeholder="input language....."></textarea>
+  <script src="index.js"></script>
+  <script src="popup.js" defer></script>
 </body>
 
 

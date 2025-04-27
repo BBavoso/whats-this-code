@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
+
 export default defineConfig({
   base: './',
   build: {
@@ -10,7 +11,9 @@ export default defineConfig({
         popup: resolve(__dirname, 'popup.html'),
         background: resolve(__dirname, 'src/background.ts'),
         index: resolve(__dirname, 'src/index.ts'),
+        content: resolve(__dirname, 'src/content.ts'),
         highlightMenu: resolve(__dirname, 'src/highlightMenu.ts'),
+
       },
       output: {
         entryFileNames: '[name].js',

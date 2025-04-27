@@ -1,26 +1,118 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Helvetica Neue', 'Arial', sans-serif;
 }
 
 body {
-    height: 600px;
-    width: 600px;
-}
-
-.container {
-    position: absolute;
+    height: 400px;
+    width: 800px;
+    background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
     height: 100%;
     width: 100%;
-    flex-direction: column;
+    flex-direction: row;
+    gap: 20px;
+}
 
+/* Buttons */
+.button {
+    width: 200px;
+    height: 50px;
+    background: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin-left: 10px;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.button:hover {
+    cursor: pointer;
+    background: #5850ec;
+}
+
+/* Special case for last button */
+.button:last-child {
+    background: #ffffff;
+    color: #334e68;
+    border: 2px dashed #6c63ff;
+    border-radius: 10px;
+    width: 200px;
+    height: 50px;
+    margin-left: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    text-align: left;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: text;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+
+.button:last-child:hover {
+    background: #f0f4f8;
+}
+
+/* Buttons container */
+#buttons {
+    position: absolute;
+    display: flex;
+    bottom: 25px;
+    left: 75px;
+    gap: 15px;
+    flex-direction: row;
+    align-items: center;
+    z-index: 3;
+    width: calc(100% - 150px);
+}
+
+/* Textareas */
+.textareas {
+    resize: none;
+    border: 2px solid #bcccdc;
+    border-radius: 10px;
+    height: 60%;
+    width: 42%;
+    padding: 15px;
+    margin-top: 40px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    font-size: 14px;
+    color: #334e68;
+}
+
+textarea::placeholder {
+    text-align: center;
+    color: #829ab1;
+    font-size: 14px;
 }
 
 #input_area {
+    position: relative;
+}
 
+#output_area {
+    overflow-y: scroll;
+    padding-left: 15px;
     border: 1px solid black;
     border-radius: 5px;
     height: 35%;

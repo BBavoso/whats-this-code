@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "description": "Explains Code",
   "permissions": [
+    "storage",
     "scripting",
     "activeTab",
     "tabs",
@@ -20,8 +21,10 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["dist/highlightMenu.js"],
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": ["dist/content.js"], ["dist/highlightMenu.js"],
       "css": ["styles.css"]
     }
   ]
