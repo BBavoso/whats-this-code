@@ -132,24 +132,16 @@ async function explain() {
   });
 
     return response.text ?? "";
+};
 
 const explainButton = document.getElementById('explain') as HTMLButtonElement;
 const translateButton = document.getElementById('translate') as HTMLButtonElement;
 const outputBox = document.getElementById('output_area') as HTMLDivElement; // assume it's a <textarea>
 const inputBox = document.getElementById('input_area') as HTMLTextAreaElement;
 
-const explainButton = document.getElementById("explain") as HTMLButtonElement;
-const translateButton = document.getElementById("translate") as HTMLButtonElement;
-const outputBox = document.getElementById("output_area") as HTMLDivElement// assume it's a <textarea>
-const inputBox = document.getElementById("input_area") as HTMLTextAreaElement;
-
 explainButton.addEventListener("click", async () => {
     const response = await explain();
     outputBox.innerHTML = await marked.parse(response); // <-- raw markdown text, no marked.parse
-
-translateButton.addEventListener('click', async () => {
-  const response = await translate();
-  outputBox.innerHTML = await marked.parse(response); //
 });
 // popup.ts
 
